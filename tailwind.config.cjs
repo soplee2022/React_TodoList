@@ -12,7 +12,13 @@ module.exports = {
         md: '24px',
       },
     },
-    extend: {},
+    extend: {
+      colors: {
+        'primary': '#aca691',
+        'primary-light': '#dddace',
+        'brown': '#584d3d'
+      },
+    },
   },
   plugins: [],
 }
