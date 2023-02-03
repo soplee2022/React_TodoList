@@ -14,35 +14,43 @@ const myTodo = [
   {
     id: 2,
     text: '這是第幾版 Todo',
-    finish: false,
+    finish: true,
   }, 
   {
     id: 3,
-    text: 'ㄎㄎ',
+    text: '今天幾點睡',
+    finish: false,
+  }, 
+  {
+    id: 4,
+    text: '跟 React 當好朋友 :)',
     finish: false,
   }];
 
 
 function App() {
   const divStyle = 'bg-primary-light h-screen flex flex-col items-center';
-  const sectionStyle = 'w-[500px] mx-auto flex flex-col items-center mt-4 bg-white rounded-[10px] box_shadow';
+  const sectionStyle = 'w-full mx-auto flex flex-col items-center mt-4 bg-white rounded-[10px] box_shadow';
   const ulStyle = 'flex w-full flex-col justify-around';
+  const listStyle = 'container max-w-[500px] md:px-0';
 
-  const [todo, setTodo] = useState(myTodo)
-  const [add,setAdd] = useState(todo)
+  const [data, setData] = useState(myTodo)
+  const [todo,setTodo] = useState(data)
 
 
   return (
     <div className={divStyle}>
       <NavBar />
-      <TextTodo todo={todo} setTodo={setTodo} add={add} setAdd={setAdd} /> 
-      <section className={sectionStyle}>
-        <TabStatus />
-        <ul className={ulStyle}>
-          <TodoList add={add} setAdd={setAdd} />
-          <CleanAll add={add} />
-        </ul>
-      </section>
+      <TextTodo data={data} setData={setData} todo={todo} setTodo={setTodo} /> 
+      <div className={listStyle}>
+        <section className={sectionStyle}>
+          <TabStatus todo={todo} setTodo={setTodo}/>
+          <ul className={ulStyle}>
+            <TodoList todo={todo} setTodo={setTodo} />
+            <CleanAll todo={todo} setTodo={setTodo}/>
+          </ul>
+        </section>
+      </div>
     </div>
   )
 }
