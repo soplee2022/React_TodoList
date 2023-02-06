@@ -2,16 +2,12 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import  Icon_add  from '../assets/images/icon_add.svg'
 
-export function TextTodo({todo, setTodo}) {
+export function TextTodo({todo, setTodo, data, setData}) {
 
   const [value, setValue] = useState('')
 
-  // useEffect( () => {
-  //   console.log(todo);
-  // } , [todo])
-
   const AddTodo = () =>{
-    setTodo([...todo, {id: `${Number(todo.length+1)}`, text:`${value}` , finish: false}])
+    setData([...data, {id: `${Number(data.length+1)}`, text:`${value}` , finish: false}])
     setValue('')
   }
 

@@ -4,29 +4,7 @@ import { TextTodo } from './components/TextTodo'
 import { TabStatus } from './components/TabStatus'
 import { TodoList } from './components/TodoList'
 import { CleanAll } from './components/CleanAll'
-
-const myTodo = [
-  {
-    id: 1,
-    text: '今天星期幾',
-    finish: true,
-  },
-  {
-    id: 2,
-    text: '這是第幾版 Todo',
-    finish: true,
-  }, 
-  {
-    id: 3,
-    text: '今天幾點睡',
-    finish: false,
-  }, 
-  {
-    id: 4,
-    text: '跟 React 當好朋友 :)',
-    finish: false,
-  }];
-
+import { useEffect } from 'react'
 
 function App() {
   const divStyle = 'bg-primary-light h-screen flex flex-col items-center';
@@ -34,20 +12,19 @@ function App() {
   const ulStyle = 'flex w-full flex-col justify-around';
   const listStyle = 'container max-w-[500px] md:px-0';
 
-  const [data, setData] = useState(myTodo)
+  const [data, setData] = useState([])
   const [todo,setTodo] = useState(data)
-
 
   return (
     <div className={divStyle}>
       <NavBar />
-      <TextTodo data={data} setData={setData} todo={todo} setTodo={setTodo} /> 
+      <TextTodo todo={todo} setTodo={setTodo} data={data} setData={setData}/> 
       <div className={listStyle}>
         <section className={sectionStyle}>
-          <TabStatus todo={todo} setTodo={setTodo}/>
+          <TabStatus todo={todo} setTodo={setTodo} data={data} setData={setData}/>
           <ul className={ulStyle}>
-            <TodoList todo={todo} setTodo={setTodo} />
-            <CleanAll todo={todo} setTodo={setTodo}/>
+            <TodoList todo={todo} setTodo={setTodo} data={data} setData={setData}/>
+            <CleanAll todo={todo} setTodo={setTodo} data={data} setData={setData}/>
           </ul>
         </section>
       </div>

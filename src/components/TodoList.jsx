@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useState } from 'react'
 import  Icon_delete  from '../assets/images/icon_delete.svg'
 
-export function TodoList({todo, setTodo}) {
+export function TodoList({todo, setTodo, data, setData}) {
 
   const ulStyle = 'flex w-[400] flex-col justify-around space-y-6 mt-6 mx-6';
   const liStyle = 'flex items-center justify-between'
@@ -11,21 +11,28 @@ export function TodoList({todo, setTodo}) {
 
   const FinishStatus =(id)=>{
     const newData=[...todo]
-    newData.map((newItem,newIndex)=>{
+    const changStatus = newData.map((newItem,newIndex)=>{
       if(newItem.id===id){
         newItem.finish = !newItem.finish
-        setTodo(newData)
       }
+      return newItem
     })
+    setData(changStatus)
   }
 
+  // const DeleteTodo = (id, index) =>{
+  //   const newData = [...todo]
+  //   newData.map((newItem, newIndex)=>{
+  //     newItem.id === id && newData.splice(index, 1)
+  //   })
+  //   setTodo(newData)
+  //   setData(newData)
+  // }
   const DeleteTodo = (id, index) =>{
-    const newData = [...todo]
-
-    newData.map((newItem, newIndex)=>{
-      newItem.id === id && newData.splice(index, 1)
+    const deleteTodo = data.filter((newItem, newIndex)=>{
+      return newItem.id !== id
     })
-    setTodo(newData)
+    setData(deleteTodo)
   }
 
   return(
