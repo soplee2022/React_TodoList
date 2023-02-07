@@ -1,56 +1,53 @@
-import { useEffect } from 'react';
-import { useState } from 'react'
-import  Icon_delete  from '../assets/images/icon_delete.svg'
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/prop-types */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable camelcase */
+import { Empty } from 'antd';
 
-export function TodoList({todo, setTodo, data, setData}) {
+import Icon_delete from '../assets/images/icon_delete.svg';
 
+export function TodoList({
+  todo, data, setData,
+}) {
   const ulStyle = 'flex w-[400] flex-col justify-around space-y-6 mt-6 mx-6';
-  const liStyle = 'flex items-center justify-between'
+  const liStyle = 'flex items-center justify-between';
   const notFinish = 'text-[14px] text-brown';
   const isFinish = 'text-[14px] text-gray-300 line-through';
 
-  const FinishStatus =(id)=>{
-    const newData=[...todo]
-    const changStatus = newData.map((newItem,newIndex)=>{
-      if(newItem.id===id){
-        newItem.finish = !newItem.finish
+  const FinishStatus = (id) => {
+    const newData = [...todo];
+    const changStatus = newData.map((newItem) => {
+      if (newItem.id === id) {
+        newItem.finish = !newItem.finish;
       }
-      return newItem
-    })
-    setData(changStatus)
-  }
+      return newItem;
+    });
+    setData(changStatus);
+  };
 
-  // const DeleteTodo = (id, index) =>{
-  //   const newData = [...todo]
-  //   newData.map((newItem, newIndex)=>{
-  //     newItem.id === id && newData.splice(index, 1)
-  //   })
-  //   setTodo(newData)
-  //   setData(newData)
-  // }
-  const DeleteTodo = (id, index) =>{
-    const deleteTodo = data.filter((newItem, newIndex)=>{
-      return newItem.id !== id
-    })
-    setData(deleteTodo)
-  }
-
-  return(
+  const DeleteTodo = (id) => {
+    const deleteTodo = data.filter((newItem) => newItem.id !== id);
+    setData(deleteTodo);
+  };
+  return (
     <ul className={ulStyle}>
-      {todo.map(({id, finish, text},index) =>{
-        return (
-          <li className={liStyle} key={id}>
-            <div className='flex space-x-4 items-center'>
-              <input type="checkbox" name="" id="" className='w-5 h-5 rounded-md' defaultChecked={finish ? true : false} onClick={() =>{FinishStatus(id)}}/>
-              <p className={finish ? isFinish : notFinish}>{text}</p>
-            </div>
-            <input type="button" className={`w-6 h-6`} value="" 
-            style={{backgroundImage: `url(${Icon_delete})`}}
+      {todo.length === 0 ? <Empty /> : null}
+      {todo.map(({ id, finish, text }, index) => (
+        <li className={liStyle} key={id}>
+          <div className="flex space-x-4 items-center">
+            <input type="checkbox" name="" id="" className="w-5 h-5 rounded-md" defaultChecked={!!finish} onClick={() => { FinishStatus(id); }} />
+            <p className={finish ? isFinish : notFinish}>{text}</p>
+          </div>
+          <input
+            type="button"
+            className="w-6 h-6"
+            value=""
+            style={{ backgroundImage: `url(${Icon_delete})` }}
             onClick={() => DeleteTodo(id, index)}
-            ></input>
+          />
         </li>
-        )
-      })}
+      ))}
     </ul>
-  )
+  );
 }
